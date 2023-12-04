@@ -23,7 +23,7 @@ password = "your_password"
 jiraTicket = "YOUR-PROJECT-KEY-123"
 
 # Check if correct number of arguments is provided
-if len(sys.argv) < 3:
+if len(sys.argv) < 2:
     print("Usage: python script.py customfield_ID=new_value")
     sys.exit(1)
 
