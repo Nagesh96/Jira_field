@@ -6,13 +6,14 @@ import os
 JIRA_URL = 'https://your-jira-instance.com'
 CUSTOM_FIELD_ID = 'customfield_17856'  # Replace with your specific custom field ID
 
-# Check if username and password are provided as arguments
-if len(sys.argv) != 3:
-    print("Usage: python your_python_script.py <username> <password>")
+# Check if username, password, and custom field value are provided as arguments
+if len(sys.argv) != 4:
+    print("Usage: python your_python_script.py <username> <password> <custom_field_value>")
     sys.exit(1)
 
 USERNAME = sys.argv[1]
 PASSWORD = sys.argv[2]
+CUSTOM_FIELD_VALUE = sys.argv[3]
 
 # Authenticate with Jira
 jira = JIRA(server=JIRA_URL, basic_auth=(USERNAME, PASSWORD))
@@ -23,6 +24,6 @@ for key, value in os.environ.items():
         ticket = value
         issue = jira.issue(ticket)
 
-        # Update custom field value in Jira for each ticket
-        issue.update(fields={CUSTOM_FIELD_ID: ticket})
-        print(f"Custom field '{CUSTOM_FIELD_ID}' updated for Jira ticket '{ticket}'")
+        # Update custom field value in Jira for each ticket with the provided value
+        issue.update(fields={CUSTOM_FIELD_ID: CUSTOM_FIELD_VALUE})
+        print(f"Custom field '{CUSTOM_FIELD_ID}' updated for Jira ticket '{ticket}' with the provided value")
